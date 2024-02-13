@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Chat Page</title>
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="style/main.css">
+<link rel="stylesheet" href="style/chat.css">
+<link rel="stylesheet" href="style/scroll.css">
+
+<body>
+    <!-- <h1>Chat Page</h1> -->
+    <div id="mainBox">
+        <div id="toolBox"></div>
+        <div id="chatBox" class="customScroll">
+            <!-- <div class="customScrollBar"></div> -->
+            <div class="message incoming" id="msg#00000000000000001">
+                <div class="text">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad nobis similique sit. Adipisci
+                        nesciunt quam expedita nemo porro mollitia eveniet vero temporibus, hic voluptas inventore
+                        incidunt recusandae quia. Nesciunt, nam?</p>
+                </div>
+                <div class="subItems">
+                    <div class="time">12:00</div>
+                    <div class="status">Read</div>
+                </div>
+            </div>
+            <div class="message incoming" id="msg#00000000000000001">
+                <div class="text">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad nobis similique sit. Adipisci
+                        nesciunt quam expedita nemo porro mollitia eveniet vero temporibus, hic voluptas inventore
+                        incidunt recusandae quia. Nesciunt, nam?</p>
+                </div>
+                <div class="subItems">
+                    <div class="time">12:00</div>
+                    <div class="status">Read</div>
+                </div>
+            </div>
+            <div class="message outgoing" id="msg#00000000000000002">
+                <div class="text">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad nobis similique sit. Adipisci
+                        nesciunt quam expedita nemo porro mollitia eveniet vero temporibus, hic voluptas inventore
+                        incidunt recusandae quia. Nesciunt, nam?</p>
+                </div>
+                <div class="subItems">
+                    <div class="time">12:01</div>
+                    <div class="status">Recieved</div>
+                </div>
+            </div>
+            <div class="message incoming" id="msg#00000000000000001">
+                <div class="text">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad nobis similique sit. Adipisci
+                        nesciunt quam expedita nemo porro mollitia eveniet vero temporibus, hic voluptas inventore
+                        incidunt recusandae quia. Nesciunt, nam?</p>
+                </div>
+                <div class="subItems">
+                    <div class="time">12:00</div>
+                    <div class="status">Read</div>
+                </div>
+            </div>
+            <div class="message outgoing" id="msg#00000000000000002">
+                <div class="text">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad nobis similique sit. Adipisci
+                        nesciunt quam expedita nemo porro mollitia eveniet vero temporibus, hic voluptas inventore
+                        incidunt recusandae quia. Nesciunt, nam?</p>
+                </div>
+                <div class="subItems">
+                    <div class="time">12:01</div>
+                    <div class="status">Recieved</div>
+                </div>
+            </div>
+        </div>
+        <div id="inputBox">
+            <textarea id="inputField" placeholder="Enter your message"></textarea>
+            <div class="inputTool" id="attachToolButton">
+                <!--Attach-->
+                <svg viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="m 8 18 l 11 -11 c 9 -9, 19 3, 10 10 l -14 14 c -8 6, -14 -4, -8 -8 l 11 -11, c 9 -10, 17 -3, 6, 6 l -11 11"
+                        fill="transparent" stroke-width="2" />
+                </svg>
+            </div>
+            <div class="inputTool" id="emojiToolButton">
+                <!--Emoji-->
+                <svg viewBox="0 0 38 38">
+                    <circle cx="19" cy="19" r="16" fill="transparent" stroke-width="2" />
+                    <path d="m 12 24 a 9, 9, 0 0, 0, 14 0" fill="transparent" stroke-width="2" />
+                    <circle cx="13" cy="15" r="2" />
+                    <circle cx="25" cy="15" r="2" />
+                </svg>
+            </div>
+            <div class="inputTool" id="sendToolButton">
+                <p>Send
+                <p>
+            </div>
+        </div>
+    </div>
+    <script>
+        var sendButton = document.getElementById("sendToolButton");
+        var inputField = document.getElementById("inputField");
+
+        const send = () => {
+            var message = inputField.value;
+            chSpaces = new RegExp("\S", "g");
+            // if (message == "" || message == null || message == undefined || !chSpaces.test(message)) {
+            //     return;
+            // }
+            if (message) {
+                var messageBox = document.getElementById("chatBox");
+                var newMessage = document.createElement("div");
+                newMessage.className = "message outgoing";
+                // newMessage.id = "msg#" + Date.now();
+                newMessage.innerHTML = '<div class="text"><p>' + message + '</p></div><div class="subItems"><div class="time">' + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false }) + '</div><div class="status">Sending</div></div>';
+                messageBox.appendChild(newMessage);
+                inputField.value = "";
+                messageBox.scrollTop = messageBox.scrollHeight;
+            }
+        }
+
+        sendButton.addEventListener("click", function () {
+            send();
+        });
+        window.addEventListener("keydown", function (e) {
+            if (e.key == "Enter") {
+                send();
+            }
+        });
+    </script>
+    <script src="js/scroll.js"></script>
+    <script src="js/transmission.js"></script>
+    <script src="js/chat.js"></script>
+</body>
+
+</html>
