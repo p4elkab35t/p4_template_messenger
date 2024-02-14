@@ -103,28 +103,34 @@
         var inputField = document.getElementById("inputField");
 
         const send = () => {
-            var message = inputField.value;
-            chSpaces = new RegExp("\S", "g");
-            // if (message == "" || message == null || message == undefined || !chSpaces.test(message)) {
-            //     return;
-            // }
-            if (message) {
-                var messageBox = document.getElementById("chatBox");
-                var newMessage = document.createElement("div");
+            const message = inputField.value;
+            let chSpaces = new RegExp(/^\s*$/, "gm");
+            //console.log(message);
+            //console.log(!chSpaces.test(message));
+
+            if (!chSpaces.test(message) == true) {
+                let messageBox = document.getElementById("chatBox");
+                let newMessage = document.createElement("div");
                 newMessage.className = "message outgoing";
                 // newMessage.id = "msg#" + Date.now();
                 newMessage.innerHTML = '<div class="text"><p>' + message + '</p></div><div class="subItems"><div class="time">' + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false }) + '</div><div class="status">Sending</div></div>';
                 messageBox.appendChild(newMessage);
-                inputField.value = "";
-                messageBox.scrollTop = messageBox.scrollHeight;
-            }
-        }
 
-        sendButton.addEventListener("click", function () {
+                messageBox.scrollTop = messageBox.scrollHeight;
+                inputField.value = "";
+            }
+            else {
+                inputField.value = "";
+                console.log("Empty message");
+            };
+        };
+
+        sendButton.addEventListener("click", function (e) {
             send();
         });
         window.addEventListener("keydown", function (e) {
             if (e.key == "Enter") {
+                e.preventDefault();
                 send();
             }
         });
